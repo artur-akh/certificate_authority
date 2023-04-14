@@ -9,7 +9,7 @@ on:
 
 env:
   SOURCE     : "./"
-  TARGET     : "~/docker_bind9"
+  TARGET     : "~/docker_certificate_authority"
   DOCKER_TAG : "${{ secrets.DOCKERHUB_USERNAME }}/certificate_authority:latest"
 
 jobs:
@@ -47,4 +47,4 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: arturakh/bind9
+          repository: arturakh/certificate_authority

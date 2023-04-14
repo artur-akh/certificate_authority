@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: ca
-        image: arturakh/certificate_authority
+        image: arturakh/certificate_authority:latest
         # args: ["/bin/sh", "-c", "cat /root/pki/ca-cert.pem && ls -la /root/pki/" && apt-get update -y && apt-get install iproute2 iputils-ping dnsutils -y]
         args:
         - /bin/sh
@@ -30,8 +30,8 @@ spec:
           # ping -c 3 mysql-statefulset-2.mysql
         env:
         - name: IP_DOMAIN
-          value: "php.artur-akh.ru"
+          value: "test.local"
         - name: CN_NAME
-          value: "php CA"
+          value: "local CA"
       restartPolicy: Never
   backoffLimit: 4

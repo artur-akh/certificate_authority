@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ca-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: ca
+        image: arturakh/certificate_authority
+        # args: ["/bin/sh", "-c", "cat /root/pki/ca-cert.pem && ls -la /root/pki/" && apt-get update -y && apt-get install iproute2 iputils-ping dnsutils -y]
+        args:
+        - /bin/sh
+        - -c
+        - |
+          ls -la /root/pki/ &&
+          echo "----CA-cert.pem----"
+          cat /root/pki/ca-cert.pem && 
+          echo "----SERVER-cert.pem----" &&
+          cat /root/pki/server-cert.pem && 
+          echo "----SERVER-key.pem----" &&
+          cat /root/pki/server-key.pem && 
+          echo "----FINISH----"
+          # apt-get update -y &&
+          # apt-get install iproute2 iputils-ping dnsutils -y &&
+          # nslookup mysql-statefulset-0.mysql &&
+          # nslookup mysql &&
+          # ping -c 4 mysql-statefulset-0.mysql &&
+          # ping -c 3 mysql-statefulset-1.mysql &&
+          # ping -c 3 mysql-statefulset-2.mysql
+        env:
+        - name: IP_DOMAIN
+          value: "php.artur-akh.ru"
+        - name: CN_NAME
+          value: "php CA"
+      restartPolicy: Never
+  backoffLimit: 4
